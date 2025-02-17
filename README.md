@@ -11,21 +11,9 @@ Key features include:
 - **Gradio** interface to allow users to upload videos, view processed results, and see mAP evaluation results.
 - Tracking embeddings are saved for further analysis.
 
-This solution is useful for applications like surveillance, people counting, and motion analysis, where real-time detection and tracking of individuals are crucial.
-
 ---
 
-## Technologies Used
-
-- **YOLOv8**: Object detection model for identifying people in video frames.
-- **DeepSORT**: A tracking algorithm to maintain unique identities of detected objects across frames.
-- **OpenCV**: For video processing and displaying results.
-- **Gradio**: A web interface for easy interaction with the system.
-- **Pickle**: For saving and loading tracking embeddings.
-
----
-
-## Prerequisites
+## Prerequisites & Running Application
 
 Before running the system, ensure you have the following installed:
 
@@ -33,16 +21,18 @@ Before running the system, ensure you have the following installed:
    - Make sure Python 3.8 or a later version is installed on your system. You can download it from the official [Python website](https://www.python.org/downloads/).
 
 ### 2. Required Libraries
-   - The following Python libraries are required for the project. You can install them using `pip`:
+   - The following Python libraries are required for the project **cv2**, **gradio**, **ultralytics**, **DeepSort** . You can install them using `pip`:
 
-   ```bash
-   pip install opencv-python gradio ultralytics deep-sort-realtime pickle
-```
-
-### 3. Using the requirememnts.text file to install all libraries
+### 3. Using the requirements.txt file to install all libraries
 
 ```bash
    pip3 install -r requirements.txt
+   ```
+
+### 4. How to Run the Application
+To run the application run 
+```bash
+   python3 code/main.py
    ```
 
 ## System Tested On
