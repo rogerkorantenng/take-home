@@ -106,6 +106,6 @@ gr.Interface(
         gr.Textbox(label="mAP Evaluation"),
         gr.Textbox(label="Track Embeddings (Matched with ID)", interactive=True, lines=10)
     ],
-    title="Person Detection & Tracking with mAP Evaluation",
+    title="Person Detection & Tracking with mAP Evaluation for Computer Vision Interview (Take Home)",
     description="Upload a video to detect and track people. Evaluates detection accuracy using mAP and displays embeddings linked to track IDs. Download the processed video after analysis.",
 ).launch(share=True)
