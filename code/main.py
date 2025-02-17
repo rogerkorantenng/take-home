@@ -92,6 +92,6 @@ gr.Interface(
     fn=gradio_process_video,
     inputs=gr.Video(),
     outputs=[gr.Video(), gr.Textbox(label="mAP Evaluation")],
-    title="Person Detection & Tracking with mAP Evaluation",
+    title="Person Detection & Tracking with mAP Evaluation for Computer Vision Engineer - Take Home",
     description="Upload a video to detect and track people. Evaluates detection accuracy using mAP."
 ).launch(share=True)
