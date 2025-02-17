@@ -35,6 +35,10 @@ To run the application run
    python3 code/main.py
    ```
 
+### Troubleshooting possible errors
+   - In the case you get the error **ImportError: libGL.so.1: cannot open shared object file: No such file or directory** while running on ubuntu or mac systems 
+   - Install the libGL.so.1 with **sudo apt install -y libgl1**
+
 ## System Tested On
 
 The system has been tested on the following environments:
