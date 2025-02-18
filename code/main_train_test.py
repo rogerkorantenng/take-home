@@ -13,13 +13,13 @@ tracker = DeepSort(max_age=50, embedder="mobilenet", embedder_gpu=True)
 # Function to calculate mAP (Mean Average Precision) safely
 def evaluate_map():
     try:
-        metrics = model.val(split="val")  # Ensure you have a validation dataset
-        map_50 = metrics.box.map50  # mAP at IoU 0.5
-        map_50_95 = metrics.box.map  # mAP at IoU 0.5:0.95
+        metrics = model.val(split="val")
+        map_50 = metrics.box.map50
+        map_50_95 = metrics.box.map
         return map_50, map_50_95
     except Exception as e:
         print(f"Error during mAP evaluation: {e}")
-        return "N/A", "N/A"  # Return N/A if validation fails
+        return "N/A", "N/A"
 
 # Process video function
 def process_video(video_path):
@@ -52,7 +52,7 @@ def process_video(video_path):
 
             # Only detect people (class 0)
             if int(cls) == 0 and conf > 0.3:
-                bbox = [x1, y1, x2 - x1, y2 - y1]  # Convert (x1, y1, x2, y2) → (x, y, w, h)
+                bbox = [x1, y1, x2 - x1, y2 - y1]
                 detections.append([bbox, conf, None])
 
         # Update tracker
@@ -63,7 +63,7 @@ def process_video(video_path):
             if not track.is_confirmed():
                 continue
             track_id = track.track_id
-            x, y, w, h = map(int, track.to_tlwh())  # Convert tracking bbox to correct format
+            x, y, w, h = map(int, track.to_tlwh())
 
             # Draw bounding box and ID label
             cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
@@ -74,17 +74,14 @@ def process_video(video_path):
     cap.release()
     out.release()
 
-    # Evaluate mAP safely
     map_50, map_50_95 = evaluate_map()
 
     return output_path, f"mAP@0.5: {map_50}", f"mAP@0.5:0.95: {map_50_95}"
 
-# Gradio UI function
 def gradio_process_video(video):
     output_path, map_50, map_50_95 = process_video(video)
     return output_path, map_50, map_50_95
 
-# Create interactive Gradio app
 gr.Interface(
     fn=gradio_process_video,
     inputs=gr.Video(label="Upload Video"),
