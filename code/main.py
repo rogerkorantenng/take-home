@@ -39,7 +39,7 @@ def process_video(video_path):
         for box in results.boxes.data:
             x1, y1, x2, y2, conf, cls = box.tolist()
 
-            if int(cls) == 0 and conf > 0.3:  # Person class
+            if int(cls) == 0 and conf > 0.3:
                 bbox = [x1, y1, x2 - x1, y2 - y1]
                 detections.append([bbox, conf, None])
 
@@ -84,8 +84,8 @@ def evaluate_model():
     """
     results = model.val(data="coco128.yaml")
 
-    map50 = results.box.map50  # mAP@0.5 (IoU threshold 0.5)
-    map50_95 = results.box.map  # mAP averaged over IoU thresholds from 0.5 to 0.95
+    map50 = results.box.map50
+    map50_95 = results.box.map
 
     return f"mAP@0.5: {map50:.4f}\nmAP@0.5:0.95: {map50_95:.4f}"
 
@@ -94,7 +94,6 @@ def gradio_process_video(video):
     output_path, formatted_embeddings = process_video(video)
     evaluation_result = evaluate_model()
 
-    # ✅ Return file for download instead of displaying video
     return output_path, evaluation_result, formatted_embeddings
 
 
@@ -102,7 +101,7 @@ gr.Interface(
     fn=gradio_process_video,
     inputs=gr.Video(),
     outputs=[
-        gr.File(label="Download Processed Video"),  # ✅ Now a downloadable file
+        gr.File(label="Download Processed Video"),
         gr.Textbox(label="mAP Evaluation"),
         gr.Textbox(label="Track Embeddings (Matched with ID)", interactive=True, lines=10)
     ],
